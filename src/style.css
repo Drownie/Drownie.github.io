@@ -12,8 +12,45 @@
     left: calc(50% - calc(10% + 20%));
     box-sizing: border-box;
     width: 60%;
-    height: 3.2em;
-    background-color: rgba(255, 255, 255, 0.5);
+    height: 3.6em;
+    background-color: rgba(255, 255, 255, 0.6);
+}
+
+.top-bar {
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    box-sizing: border-box;
+    height: 1.2em;
+    background-color: rgba(255, 255, 255, .6);
+}
+
+.top-bar .logo {
+    box-sizing: border-box;
+    height: 100%;
+    aspect-ratio: 1 / 1;
+    font-size: .9em;
+}
+
+.top-bar .menu {
+    box-sizing: border-box;
+    height: 100%;
+    width: calc(75% - 1.2em);
+}
+
+.top-bar .menu .menu-item {
+    font-size: .9em;
+}
+
+.top-bar .stats {
+    box-sizing: border-box;
+    height: 100%;
+    width: calc(25% - 1.2em);
+}
+
+.top-bar .stats .stats-item {
+    font-size: .9em;
 }
 
 .app {
@@ -21,4 +58,9 @@
     box-sizing: border-box;
     height: 80%;
     aspect-ratio: 1 / 1;
+    transition: .3s;
+}
+
+.app:hover {
+    background-color: rgba(0, 0, 0, 0.8);
 }
