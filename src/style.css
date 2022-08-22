@@ -40,7 +40,14 @@
 }
 
 .top-bar .menu .menu-item {
+    padding: 0 .3em;
     font-size: .9em;
+    cursor: default;
+    transition: .3s;
+}
+
+.top-bar .menu .menu-item:hover {
+    background-color: rgba(0, 0, 0, 0.3);
 }
 
 .top-bar .stats {
