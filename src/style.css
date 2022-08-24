@@ -7,6 +7,7 @@
     background-color: royalblue;
 }
 
+/* Taskbar */
 .taskbar {
     bottom: 10px;
     left: calc(50% - calc(10% + 20%));
@@ -15,6 +16,21 @@
     height: 3.6em;
     background-color: rgba(255, 255, 255, 0.6);
 }
+
+/* Taskbar - App */
+.app {
+    position: relative;
+    box-sizing: border-box;
+    height: 80%;
+    aspect-ratio: 1 / 1;
+    transition: .3s;
+}
+
+.app:hover {
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+/* Topbar */
 
 .top-bar {
     position: fixed;
@@ -26,6 +42,7 @@
     background-color: rgba(255, 255, 255, .6);
 }
 
+/* Topbar - Logo */
 .top-bar .logo {
     box-sizing: border-box;
     height: 100%;
@@ -33,6 +50,7 @@
     font-size: .9em;
 }
 
+/* Topbar - Menu */
 .top-bar .menu {
     box-sizing: border-box;
     height: 100%;
@@ -50,6 +68,7 @@
     background-color: rgba(0, 0, 0, 0.3);
 }
 
+/* Topbar - Status */
 .top-bar .stats {
     box-sizing: border-box;
     height: 100%;
@@ -60,14 +79,65 @@
     font-size: .9em;
 }
 
-.app {
-    position: relative;
+/* Terminal */
+.terminal-app {
+    top: 10%;
+    left: calc(50% - 25%);
     box-sizing: border-box;
-    height: 80%;
-    aspect-ratio: 1 / 1;
-    transition: .3s;
+    width: 50%;
+    height: 65%;
+    background-color: #171717;
+    z-index: 9;
+    overflow: hidden;
 }
 
-.app:hover {
-    background-color: rgba(0, 0, 0, 0.8);
+/* Terminal - Top */
+.terminal-app .terminal-top {
+    display: flex;
+    box-sizing: border-box;
+    width: 100%;
+    height: 1.6em;
+    background-color: #e2e2e2;
+}
+
+.terminal-app .terminal-top .terminal-buttons {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    padding: .35em;
+    box-sizing: border-box;
+    width: calc(1.65em * 3);
+    height: 100%;
+    /* background-color: red; */
+}
+
+.terminal-buttons .close-button,
+.terminal-buttons .fullscreen-button,
+.terminal-buttons .minimize-button {
+    box-sizing: border-box;
+    height: 100%;
+    aspect-ratio: 1 / 1;
+}
+
+.terminal-buttons .close-button {
+    background-color: #fc4250;
+}
+
+.terminal-buttons .fullscreen-button {
+    background-color: #ffc300;
+}
+
+.terminal-buttons .minimize-button {
+    background-color: #00e036;
+}
+
+.terminal-app .terminal-top .terminal-name {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+    width: calc(100% - 4.8em);
+    height: 100%;
+    font-size: .85em;
+    cursor: grab;
 }

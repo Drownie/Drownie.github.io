@@ -9,12 +9,16 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
 
+    <!-- Jquery Terminal CSS-->
+    <link rel="stylesheet" href="https://unpkg.com/jquery.terminal/css/jquery.terminal.min.css" />
+
     <!-- Custom CSS -->
     <link rel="stylesheet" href="src/style.css">
     <title>Mac</title>
 </head>
 <body>
-    <div class="content">
+    <div class="content position-relative">
+        <!-- Top Bar -->
         <div class="top-bar d-flex shadow-sm justify-content-between p-2">
             <div class="logo d-flex justify-content-center align-items-center">
                 <i class="bi bi-apple"></i>
@@ -34,12 +38,33 @@
                 <i class="stats-item bi mx-1 bi-list-ul"></i>
             </div>
         </div>
+
+        <!-- Task Bar -->
         <div id="taskbar" class="d-flex taskbar rounded-3 position-fixed justify-content-evenly align-items-center">
+        </div>  
+        
+        <!-- Terminal -->
+        <div id="terminal" class="terminal-app position-absolute rounded-3 shadow-sm">
+            <div id="terminal-top" class="terminal-top">
+                <div class="terminal-buttons">
+                    <div class="close-button rounded-circle"></div>
+                    <div class="fullscreen-button rounded-circle"></div>
+                    <div class="minimize-button rounded-circle"></div>
+                </div>
+                <div class="terminal-name">
+                    Macintosh Abraham
+                </div>
+            </div>
+            <div class="terminal-content"></div>
         </div>
     </div>
 
     <!-- Bootstrap Script -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
+    <!-- Jquery Terminal Script -->
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="https://unpkg.com/jquery.terminal/js/jquery.terminal.min.js"></script>
 
     <!-- Custom Script -->
     <script src="src/script.js"></script>

@@ -1,4 +1,4 @@
-const icons = ["app-store.png", "clock.png", "files.png", "calculator.png", "settings.png"];
+const icons = ["app-store.png", "clock.png", "files.png", "calculator.png", "settings.png", "terminal.png"];
 const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
 // Taskbar
@@ -14,6 +14,7 @@ app.classList.add("rounded");
 // Desktop time
 const desktopTime = document.getElementById("desktop-time");
 
+// Create app node
 for (var i = 0; i < icons.length; i++) {
     let appTmp = app.cloneNode();
     appTmp.style.backgroundImage = `url("src/Icons/${icons[i]}")`;
@@ -21,6 +22,21 @@ for (var i = 0; i < icons.length; i++) {
     // console.log(icons[i]);
     taskbar.appendChild(appTmp);
 }
+
+// terminal
+const terminal = document.getElementsByClassName("terminal-content");
+
+$(terminal).terminal( {
+    iam: function (name) {
+        this.echo('Hello, ' + name +
+            '. My Name is Abraham Mahanaim');
+    }
+    }, {
+        greetings: null,
+        prompt: "Abraham@Drownie-Git-Io:~$ ",
+        name: 'test',
+        height: 500
+    });
 
 function realTime() {
     const time = new Date();
@@ -40,4 +56,39 @@ function checkTime(i) {
     return i;
 }
 
+function dragElement(elmnt) {
+    var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+    if (document.getElementById(elmnt.id + "-top")) {
+      document.getElementById(elmnt.id + "-top").onmousedown = dragMouseDown;
+    } else {
+      elmnt.onmousedown = dragMouseDown;
+    }
+  
+    function dragMouseDown(e) {
+      e = e || terminal.event;
+      e.preventDefault();
+      pos3 = e.clientX;
+      pos4 = e.clientY;
+      document.onmouseup = closeDragElement;
+      document.onmousemove = elementDrag;
+    }
+  
+    function elementDrag(e) {
+      e = e || terminal.event;
+      e.preventDefault();
+      pos1 = pos3 - e.clientX;
+      pos2 = pos4 - e.clientY;
+      pos3 = e.clientX;
+      pos4 = e.clientY;
+      elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
+      elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
+    }
+  
+    function closeDragElement() {
+      document.onmouseup = null;
+      document.onmousemove = null;
+    }
+  }
+
 realTime();
+dragElement(document.getElementById("terminal"));
