@@ -1,5 +1,9 @@
-const icons = ["app-store.png", "clock.png", "files.png", "calculator.png", "settings.png", "terminal.png"];
+const icons = ["app-store", "clock", "files", "calculator", "settings", "terminal"];
 const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+const toggles = [false, false, false, false, false, false]
+
+// Topbar
+const topBar = document.getElementsByClassName("top-bar");
 
 // Taskbar
 const taskbar = document.getElementById("taskbar");
@@ -14,29 +18,64 @@ app.classList.add("rounded");
 // Desktop time
 const desktopTime = document.getElementById("desktop-time");
 
-// Create app node
+// Create app element
 for (var i = 0; i < icons.length; i++) {
+    let x = i
     let appTmp = app.cloneNode();
-    appTmp.style.backgroundImage = `url("src/Icons/${icons[i]}")`;
+    appTmp.style.backgroundImage = `url("src/Icons/${icons[i]}.png")`;
     appTmp.style.backgroundSize = "cover";
-    // console.log(icons[i]);
+    appTmp.onclick = () => onAppClick(icons[x]);
     taskbar.appendChild(appTmp);
 }
 
 // terminal
 const terminal = document.getElementsByClassName("terminal-content");
 
-$(terminal).terminal( {
+$(terminal).terminal( 
+  {
     iam: function (name) {
-        this.echo('Hello, ' + name +
-            '. My Name is Abraham Mahanaim');
+      this.echo('Hello, ' + name +
+          '. My Name is Abraham Mahanaim');
+    },
+    help: function () {
+      this.echo(
+        "iam [name] - print greeting command\n" +
+        "help - print all command available\n" +
+        "times - get current time\n"
+      );
+    },
+    times: function () {
+      this.echo(
+        "Agu, 25 22:34"
+      );
     }
-    }, {
-        greetings: null,
-        prompt: "Abraham@Drownie-Git-Io:~$ ",
-        name: 'test',
-        height: 500
-    });
+  }, {
+    greetings: null,
+    prompt: "Abraham@Drownie-Git-Io:~$ ",
+    name: 'test',
+    height: 500
+  }
+);
+
+interact('#terminal')
+  .resizable({
+    edges: {top: false, left: true, bottom: true, right: true},
+    listeners: {
+      move: function (e) {
+        let {x, y} = e.target.dataset;
+        x = (parseFloat(x) || 0) + e.deltaRect.left;
+        y = (parseFloat(y) || 0) + e.deltaRect.top;
+
+        Object.assign(e.target.style, {
+          width: `${e.rect.width}px`,
+          height: `${e.rect.height}px`,
+          transform: `translate(${x}px, ${y}px)`
+        });
+
+        Object.assign(e.target.dataset, { x, y });
+      }
+    }
+  });
 
 function realTime() {
     const time = new Date();
@@ -59,12 +98,14 @@ function checkTime(i) {
 function dragElement(elmnt) {
     var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
     if (document.getElementById(elmnt.id + "-top")) {
+      // console.log(elmnt)
       document.getElementById(elmnt.id + "-top").onmousedown = dragMouseDown;
     } else {
       elmnt.onmousedown = dragMouseDown;
     }
   
     function dragMouseDown(e) {
+      // console.log(e)
       e = e || terminal.event;
       e.preventDefault();
       pos3 = e.clientX;
@@ -80,15 +121,44 @@ function dragElement(elmnt) {
       pos2 = pos4 - e.clientY;
       pos3 = e.clientX;
       pos4 = e.clientY;
-      elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
-      elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
+
+      // Y-axis limit
+      // console.log(elmnt.offsetTop + elmnt.offsetHeight, window.innerHeight)
+      if (elmnt.offsetTop - pos2 - 1 < topBar[0].offsetHeight) {
+        elmnt.style.top = topBar[0].offsetHeight + "px";
+      } else if (elmnt.offsetTop + elmnt.offsetHeight - pos2 > window.innerHeight) {
+        elmnt.style.top = (window.innerHeight - elmnt.offsetHeight) + "px";
+      } else {
+        elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
+      }
+      
+      // X-axis limit
+      if (elmnt.offsetWidth + elmnt.offsetLeft - pos1 > window.innerWidth) {
+        elmnt.style.left = (window.innerWidth - elmnt.offsetWidth) + "px";
+      } else if (elmnt.offsetLeft - pos1 < 0) {
+        elmnt.style.left = "0px";
+      } else {
+        elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
+      }
+      // console.log(`pos1= ${pos1} pos2=${pos2} pos3=${pos3} pos4=${pos4}`)
     }
   
     function closeDragElement() {
       document.onmouseup = null;
       document.onmousemove = null;
     }
+}
+
+function onAppClick(name) {
+  if (name == "terminal") {
+    toggles[5] = !toggles[5];
+    if (toggles[5]) {
+      document.getElementById("terminal").style.display = "block";
+    } else {
+      document.getElementById("terminal").style.display = "none";
+    }
   }
+}
 
 realTime();
 dragElement(document.getElementById("terminal"));

@@ -83,12 +83,16 @@
 .terminal-app {
     top: 10%;
     left: calc(50% - 25%);
+    display: none;
     box-sizing: border-box;
-    width: 50%;
-    height: 65%;
+    min-width: 35%;
+    min-height: 30%;
+    width: 45%;
+    height: 50%;
     background-color: #171717;
     z-index: 9;
     overflow: hidden;
+    /* resize: both; */
 }
 
 /* Terminal - Top */
@@ -108,7 +112,6 @@
     box-sizing: border-box;
     width: calc(1.65em * 3);
     height: 100%;
-    /* background-color: red; */
 }
 
 .terminal-buttons .close-button,
@@ -140,4 +143,11 @@
     height: 100%;
     font-size: .85em;
     cursor: grab;
+}
+
+/* Terminal - Content */
+.terminal-app .terminal-content {
+    box-sizing: border-box;
+    height: calc(100% - 1.8em) !important;
+    width: 100%;
 }
