@@ -1,3 +1,8 @@
+@font-face {
+    font-family: DSDigital;
+    src: url("./fonts/DS-DIGI.TTF");
+}
+
 .content {
     box-sizing: border-box;
     width: 100vw;
@@ -79,8 +84,13 @@
     font-size: .9em;
 }
 
-/* Terminal */
-.terminal-app {
+/* App-template */
+.terminal-app,
+.photo-booth-app,
+.clock-app,
+.files-app,
+.calculator-app,
+.settings-app {
     top: 10%;
     left: calc(50% - 25%);
     display: none;
@@ -92,11 +102,10 @@
     background-color: #171717;
     z-index: 9;
     overflow: hidden;
-    /* resize: both; */
 }
 
-/* Terminal - Top */
-.terminal-app .terminal-top {
+/* App Top - Template */
+.app-top {
     display: flex;
     box-sizing: border-box;
     width: 100%;
@@ -104,7 +113,7 @@
     background-color: #e2e2e2;
 }
 
-.terminal-app .terminal-top .terminal-buttons {
+.app-top .app-buttons {
     display: flex;
     justify-content: space-evenly;
     align-items: center;
@@ -114,27 +123,27 @@
     height: 100%;
 }
 
-.terminal-buttons .close-button,
-.terminal-buttons .fullscreen-button,
-.terminal-buttons .minimize-button {
+.app-buttons .close-button,
+.app-buttons .fullscreen-button,
+.app-buttons .minimize-button {
     box-sizing: border-box;
     height: 100%;
     aspect-ratio: 1 / 1;
 }
 
-.terminal-buttons .close-button {
+.app-buttons .close-button {
     background-color: #fc4250;
 }
 
-.terminal-buttons .fullscreen-button {
+.app-buttons .fullscreen-button {
     background-color: #ffc300;
 }
 
-.terminal-buttons .minimize-button {
+.app-buttons .minimize-button {
     background-color: #00e036;
 }
 
-.terminal-app .terminal-top .terminal-name {
+.app-top .app-name {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -144,6 +153,25 @@
     font-size: .85em;
     cursor: grab;
 }
+
+/* Clock - Content */
+.clock-app .clock-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+    height: calc(100% - 1.8em) !important;
+    width: 100%;
+    font-family: DSDigital;
+    color: white;
+    white-space: nowrap;
+    overflow: auto hidden;
+}
+
+.clock-app .clock-content #clock-time {
+    font-size: 5em;
+}
+
 
 /* Terminal - Content */
 .terminal-app .terminal-content {

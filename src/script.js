@@ -1,4 +1,4 @@
-const icons = ["app-store", "clock", "files", "calculator", "settings", "terminal"];
+const icons = ["photo-booth", "clock", "files", "calculator", "settings", "terminal"];
 const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 const toggles = [false, false, false, false, false, false]
 
@@ -57,35 +57,18 @@ $(terminal).terminal(
   }
 );
 
-interact('#terminal')
-  .resizable({
-    edges: {top: false, left: true, bottom: true, right: true},
-    listeners: {
-      move: function (e) {
-        let {x, y} = e.target.dataset;
-        x = (parseFloat(x) || 0) + e.deltaRect.left;
-        y = (parseFloat(y) || 0) + e.deltaRect.top;
-
-        Object.assign(e.target.style, {
-          width: `${e.rect.width}px`,
-          height: `${e.rect.height}px`,
-          transform: `translate(${x}px, ${y}px)`
-        });
-
-        Object.assign(e.target.dataset, { x, y });
-      }
-    }
-  });
-
 function realTime() {
     const time = new Date();
     let h = time.getHours() % 12;
     let m = time.getMinutes();
+    let s = time.getSeconds();
     let d = days[time.getDay()];
     let p = time.getHours() >= 12 ? "PM" : "AM";
     h = checkTime(h);
     m = checkTime(m);
+    s = checkTime(s);
     desktopTime.innerHTML = `${d} ${h}:${m} ${p}`;
+    document.getElementById("clock-time").innerHTML = `${d} ${h}:${m}:${s} ${p}`
     // console.log(`${d} ${h}:${m} ${p}`);
     setTimeout(realTime, 1000)
 }
@@ -150,15 +133,55 @@ function dragElement(elmnt) {
 }
 
 function onAppClick(name) {
-  if (name == "terminal") {
+  toggle = null;
+  if (name == "photo-booth") {
+    toggles[0] = !toggles[0];
+    toggle = toggles[0];
+  } else if (name == "clock") {
+    toggles[1] = !toggles[1];
+    toggle = toggles[1];
+  } else if (name == "files") {
+    toggles[2] = !toggles[2];
+    toggle = toggles[2];
+  } else if (name == "calculator") {
+    toggles[3] = !toggles[3];
+    toggle = toggles[3];
+  } else if (name == "settings") {
+    toggles[4] = !toggles[4];
+    toggle = toggles[4];
+  } else if (name == "terminal") {
     toggles[5] = !toggles[5];
-    if (toggles[5]) {
-      document.getElementById("terminal").style.display = "block";
-    } else {
-      document.getElementById("terminal").style.display = "none";
-    }
+    toggle = toggles[5];
+  }
+
+  if (toggle == null) return ;
+  if (toggle) {
+    document.getElementById(name).style.display = "block";
+  } else {
+    document.getElementById(name).style.display = "none";
   }
 }
 
 realTime();
-dragElement(document.getElementById("terminal"));
+for (var i = 0; i < icons.length; i++) {
+  dragElement(document.getElementById(icons[i]));
+  interact(`#${icons[i]}`)
+    .resizable({
+      edges: {top: false, left: true, bottom: true, right: true},
+      listeners: {
+        move: function (e) {
+          let {x, y} = e.target.dataset;
+          x = (parseFloat(x) || 0) + e.deltaRect.left;
+          y = (parseFloat(y) || 0) + e.deltaRect.top;
+
+          Object.assign(e.target.style, {
+            width: `${e.rect.width}px`,
+            height: `${e.rect.height}px`,
+            transform: `translate(${x}px, ${y}px)`
+          });
+
+          Object.assign(e.target.dataset, { x, y });
+        }
+      }
+    });
+}

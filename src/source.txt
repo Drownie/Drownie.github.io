@@ -1,3 +1,5 @@
 Icons from Icon mafia, download source: https://iconscout.com/icon-pack/ios-icons
 Terminal Icons, download source: https://www.iconfinder.com/icons/285695/terminal_icon
 Jquery terminal: https://github.com/jcubic/jquery.terminal
+Photo-booth icons: https://www.pngdownload.id/png-wk8f6b/
+Clock-font: https://www.dafont.com/ds-digital.font
