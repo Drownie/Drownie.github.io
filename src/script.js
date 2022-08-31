@@ -2,6 +2,50 @@ const icons = ["photo-booth", "clock", "files", "calculator", "settings", "termi
 const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 const toggles = [false, false, false, false, false, false]
 
+// Calculator App
+var result = 0;
+var display = "";
+var prev = null;
+const calcMonitor = document.querySelector(".result-monitor");
+calcMonitor.innerHTML = result;
+const calcButtons = document.querySelectorAll(".calculator-button");
+const opButtons = document.querySelectorAll(".operator-button");
+for (var i = 0; i < calcButtons.length; i++) {
+  calcButtons[i].addEventListener("click", e => {
+    e.preventDefault();
+    // console.log(e.target.innerHTML);
+    insertNum(e.target.innerHTML);
+  });
+}
+
+for (var i = 0; i < opButtons.length; i++) {
+  if (opButtons[i].innerHTML == '=') {
+    opButtons[i].addEventListener("click", e => {
+      e.preventDefault();      
+      // console.log(e.target.innerHTML);
+      doOperation();
+    })
+  } else {
+    opButtons[i].addEventListener("click", e => {
+      e.preventDefault();
+      // console.log(e.target.innerHTML);
+      insertOp(e.target.innerHTML);
+    });
+  }
+}
+
+
+// Photo Booth App
+const captureButton = document.getElementById("capture-button");
+var video = document.querySelector("#vid-stream");
+let streamMedia;
+
+captureButton.style.left = `calc(50% - ${captureButton.offsetWidth / 2}px)`;
+
+function stopStream() {
+  streamMedia.getTracks().forEach(track => track.stop());
+}
+
 // Topbar
 const topBar = document.getElementsByClassName("top-bar");
 
@@ -137,6 +181,21 @@ function onAppClick(name) {
   if (name == "photo-booth") {
     toggles[0] = !toggles[0];
     toggle = toggles[0];
+    if (toggle) {
+      if (navigator.mediaDevices.getUserMedia) {
+        navigator.mediaDevices.getUserMedia({ video : true })
+          .then(function (stream) {
+            video.srcObject = stream;
+            streamMedia = stream;
+          })
+          .catch(function (e) {
+            console.log("Something's wrong");
+            console.log(e);
+          })
+      }
+    } else {
+      stopStream()
+    }
   } else if (name == "clock") {
     toggles[1] = !toggles[1];
     toggle = toggles[1];
@@ -146,6 +205,11 @@ function onAppClick(name) {
   } else if (name == "calculator") {
     toggles[3] = !toggles[3];
     toggle = toggles[3];
+    if (toggle) {
+      result = 0;
+      display = "";
+      calcMonitor.innerHTML = result;
+    }
   } else if (name == "settings") {
     toggles[4] = !toggles[4];
     toggle = toggles[4];
@@ -160,6 +224,46 @@ function onAppClick(name) {
   } else {
     document.getElementById(name).style.display = "none";
   }
+}
+
+function insertNum(num) {
+  if (prev != null) {
+    display += " " + num;
+    prev = null;
+  } else {
+    display += num;
+  }
+  calcMonitor.innerHTML = display;
+}
+
+function insertOp(ope) {
+  display += " " + ope;
+  prev = ope;
+  calcMonitor.innerHTML = display;
+}
+
+function doOperation() {
+  var ope = "+"
+  var x = display.split(" ")
+  for (var i = 0; i < x.length; i++) {
+    if (i % 2) { 
+      // operator
+      ope = x[i];
+    } else {
+      if (ope == "+") {
+        result += parseInt(x[i]);
+      } else if (ope == "-") {
+        result -= parseInt(x[i]);
+      } else if (ope == "x") {
+        result *= parseInt(x[i]);
+      } else if (ope == "/") {
+        result /= parseInt(x[i]);
+      }
+    }
+  }
+  calcMonitor.innerHTML = result;
+  display = result;
+  prev = null;
 }
 
 realTime();

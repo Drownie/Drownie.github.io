@@ -70,7 +70,12 @@
                     Photo Booth App
                 </div>
             </div>
-            <div class="photo-booth-content"></div>
+            <div class="photo-booth-content">
+                <video id="vid-stream" class="webcam-spot" autoplay="true"></video>
+                <div class="webcam-control">
+                    <button id="capture-button" class="capture-button"><i class="bi bi-camera"></i></button>
+                </div>
+            </div>
         </div>
 
         <!-- Clock -->
@@ -117,7 +122,32 @@
                     Calculator App
                 </div>
             </div>
-            <div class="calculator-content"></div>
+            <div class="calculator-content">
+                <div class="result-monitor d-flex align-items-center justify-content-end">
+                    100
+                </div>
+                <div class="control-section d-flex">
+                    <div class="number-section d-flex flex-wrap justify-content-center align-items-center">
+                        <div class="calculator-button d-flex justify-content-center align-items-center shadow-sm rounded-3">1</div>
+                        <div class="calculator-button d-flex justify-content-center align-items-center shadow-sm rounded-3">2</div>
+                        <div class="calculator-button d-flex justify-content-center align-items-center shadow-sm rounded-3">3</div>
+                        <div class="calculator-button d-flex justify-content-center align-items-center shadow-sm rounded-3">4</div>
+                        <div class="calculator-button d-flex justify-content-center align-items-center shadow-sm rounded-3">5</div>
+                        <div class="calculator-button d-flex justify-content-center align-items-center shadow-sm rounded-3">6</div>
+                        <div class="calculator-button d-flex justify-content-center align-items-center shadow-sm rounded-3">7</div>
+                        <div class="calculator-button d-flex justify-content-center align-items-center shadow-sm rounded-3">8</div>
+                        <div class="calculator-button d-flex justify-content-center align-items-center shadow-sm rounded-3">9</div>
+                        <div class="calculator-button d-flex justify-content-center align-items-center shadow-sm rounded-3 button-zero">0</div>
+                    </div>
+                    <div class="operation-section d-flex flex-wrap justify-content-center align-items-center">
+                        <div class="operator-button d-flex justify-content-center align-items-center shadow-sm rounded-3">+</div>
+                        <div class="operator-button d-flex justify-content-center align-items-center shadow-sm rounded-3">-</div>
+                        <div class="operator-button d-flex justify-content-center align-items-center shadow-sm rounded-3">/</div>
+                        <div class="operator-button d-flex justify-content-center align-items-center shadow-sm rounded-3">x</div>
+                        <div class="operator-button d-flex justify-content-center align-items-center shadow-sm rounded-3 operator-equal">=</div>
+                    </div>
+                </div>
+            </div>
         </div>
         
         <!-- Setting -->
